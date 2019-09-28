@@ -1,3 +1,5 @@
+# Tested working with PANTools 2019-09, Ansible 2.8.5, Python 3.7.4, Galaxy v2.2.3
+
 ---
 - name: Add some address objects to the firewall
   hosts: all
