@@ -1,0 +1,44 @@
+# Tested working with PSWB 2020-01-29, Ansible 2.8.7, Python 3.7.6, Galaxy v2.4.0
+
+---
+- name: Add some security rules to the firewall
+  hosts: all
+  connection: local
+  gather_facts: False
+  
+  roles:
+    - role: PaloAltoNetworks.paloaltonetworks
+    
+  tasks:
+    - name: Add some security rules to the firewall
+      include_vars: vars.yml
+      no_log: 'no'
+
+    - name: Add test rule 1 to the firewall
+      panos_security_rule:
+        provider: '{{ provider }}'
+        rule_name: 'Test Rule 1'
+        description: 'Test Rule 1 Description'
+        source_zone: ['L3-TRUST']
+        destination_zone: ['L3-UNTRUST']
+        source_ip: ['1.1.1.1']
+        source_user: ['any']
+        destination_ip: ['any']
+        category: ['any']
+        application: ['any']
+        service: ['any']
+        action: 'allow'
+        commit: 'no'
+
+    - name: Add test rule 2 to the firewall
+      panos_security_rule:
+        provider: '{{ provider }}'
+        rule_name: 'Test Rule 2'
+        description: 'Test Rule 2 Description'
+        source_zone: ['L3-TRUST']
+        source_ip: ['any']
+        destination_zone: ['L3-UNTRUST']
+        destination_ip: ['1.1.1.1']
+        application: ['any']
+        action: 'allow'
+        commit: 'no'
