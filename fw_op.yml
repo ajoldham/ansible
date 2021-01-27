@@ -5,8 +5,10 @@
   connection: local
   gather_facts: False
 
-  roles:
-    - role: PaloAltoNetworks.paloaltonetworks
+  collections:
+    - PaloAltoNetworks.paloaltonetworks
+#  roles:
+#    - role: PaloAltoNetworks.paloaltonetworks
 
   tasks:
   - include_vars: 'vars.yml'
